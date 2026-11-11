@@ -22,7 +22,12 @@ El sistema contempla tres categorías principales:
 
 La aplicación contempla distintos perfiles de usuario, con permisos específicos para consultar, publicar y administrar avisos.
 
-## Funcionalidades
+## Estado del desarrollo
+
+El proyecto se encuentra en desarrollo. Las funcionalidades se incorporan
+progresivamente siguiendo los requerimientos del proyecto integrador.
+
+## Funcionalidades previstas
 
 ### Visitantes
 - Consultar los avisos publicados.
@@ -32,7 +37,7 @@ La aplicación contempla distintos perfiles de usuario, con permisos específico
 ### Publicadores
 - Crear avisos de distintas categorías.
 - Consultar sus propios avisos.
-- Modificar avisos existentes.
+- Modificar avisos existentes, sin cambiar su categoría.
 - Eliminar sus publicaciones.
 - Gestionar sus publicaciones sin intervenir en las de otros usuarios.
 
@@ -73,6 +78,7 @@ avisos_clasificados/
 │   └── conexion.php
 │
 ├── procesos/
+│   └── procesar_aviso.php
 │
 ├── public/
 │   ├── index.php
@@ -83,6 +89,8 @@ avisos_clasificados/
 ├── css/
 │   └── estilos.css
 │
+├── js/
+│   └── publicador.js
 ├── sql/
 │   └── avisos_clasificados.sql
 │
@@ -121,7 +129,8 @@ C:\xampp\htdocs\avisos_clasificados
 
 ### 3. Configurar la base de datos
 
-El script SQL del proyecto estará disponible en:
+El script SQL de creación y configuración de la base de datos estará
+disponible en:
 
 ```text
 sql/avisos_clasificados.sql
@@ -143,6 +152,9 @@ Configurar los parámetros de conexión correspondientes al entorno local:
 - Nombre de la base de datos.
 - Usuario.
 - Contraseña.
+
+
+
 
 ### 5. Ejecutar la aplicación
 
