@@ -1,0 +1,446 @@
+/* CONFIGURACIÓN GENERAL */
+
+:root {
+    --azul-oscuro: #14283f;
+    --azul-medio: #203d5c;
+    --turquesa: #16b8a6;
+    --fondo: #f5f7fa;
+    --texto: #26384a;
+    --gris: #778493;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--fondo);
+    color: var(--texto);
+}
+
+
+/* NAVEGACIÓN */
+
+.navbar-principal {
+    background-color: var(--azul-oscuro);
+    padding: 18px 0;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    letter-spacing: -0.5px;
+}
+
+.marca-punto {
+    color: var(--turquesa);
+}
+
+.navbar-principal .nav-link {
+    color: #dce5ed;
+    font-size: 0.95rem;
+}
+
+.navbar-principal .nav-link:hover {
+    color: white;
+}
+
+.btn-acento {
+    background-color: var(--turquesa);
+    border: 1px solid var(--turquesa);
+    color: white;
+    font-weight: 600;
+}
+
+.btn-acento:hover {
+    background-color: #109c8d;
+    border-color: #109c8d;
+    color: white;
+}
+
+
+/* PORTADA */
+
+.portada {
+    background: linear-gradient(120deg, #14283f, #244d68);
+    color: white;
+    padding: 85px 0 115px;
+}
+
+.etiqueta-portada {
+    display: inline-block;
+    color: #7ee4d8;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+.titulo-portada {
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -1.5px;
+}
+
+.titulo-portada span {
+    color: #5cddcb;
+}
+
+.texto-portada {
+    color: #d0dce5;
+    font-size: 1.1rem;
+    margin-top: 20px;
+    margin-bottom: 32px;
+}
+
+
+/* BUSCADOR */
+
+.buscador {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.buscador .input-group {
+    background-color: white;
+    border-radius: 10px;
+    padding: 7px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.18);
+}
+
+.buscador .input-group-text {
+    background: white;
+    border: none;
+    color: var(--gris);
+    padding-left: 15px;
+}
+
+.buscador .form-control {
+    border: none;
+    box-shadow: none;
+    padding: 12px;
+}
+
+.buscador .btn {
+    border-radius: 7px !important;
+    padding: 0 25px;
+}
+
+
+/* CATEGORÍAS */
+
+.categorias-section {
+    margin-top: -45px;
+    position: relative;
+    z-index: 2;
+}
+
+.categoria-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: white;
+    padding: 22px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: var(--texto);
+    box-shadow: 0 5px 20px rgba(25, 45, 65, 0.07);
+    transition: transform 0.2s, box-shadow 0.2s;
+    height: 100%;
+}
+
+.categoria-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(25, 45, 65, 0.12);
+    color: var(--texto);
+}
+
+.categoria-icono {
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    font-size: 1.5rem;
+}
+
+.categoria-laboral .categoria-icono {
+    background: #e9f1ff;
+    color: #3975d7;
+}
+
+.categoria-producto .categoria-icono {
+    background: #e4f8f3;
+    color: #139b7d;
+}
+
+.categoria-inmobiliario .categoria-icono {
+    background: #fff1e6;
+    color: #db8840;
+}
+
+.categoria-card h5 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0 0 5px;
+}
+
+.categoria-card p {
+    color: var(--gris);
+    font-size: 0.83rem;
+    margin: 0;
+}
+
+.categoria-card>i {
+    color: #a0aab4;
+}
+
+
+/* SECCIÓN DE AVISOS */
+
+.seccion-avisos {
+    padding-top: 75px;
+    padding-bottom: 85px;
+}
+
+.subtitulo-seccion {
+    font-size: 0.72rem;
+    color: #159e91;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+.titulo-seccion {
+    font-size: 1.9rem;
+    font-weight: 750;
+    margin-top: 8px;
+    color: var(--azul-oscuro);
+}
+
+.link-ver-todos {
+    color: #159e91;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.link-ver-todos:hover {
+    color: #107d73;
+}
+
+
+/* TARJETAS DE AVISOS */
+
+.aviso-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    height: 100%;
+    box-shadow: 0 4px 18px rgba(25, 45, 65, 0.06);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.aviso-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 28px rgba(25, 45, 65, 0.12);
+}
+
+.aviso-imagen {
+    height: 210px;
+    position: relative;
+    overflow: hidden;
+    background: #e5ebf0;
+}
+
+.aviso-imagen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.aviso-card:hover .aviso-imagen img {
+    transform: scale(1.04);
+}
+
+.badge-categoria {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: white;
+    color: var(--azul-oscuro);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+.aviso-contenido {
+    padding: 22px;
+}
+
+.aviso-contenido h5 {
+    color: var(--azul-oscuro);
+    font-size: 1.08rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.aviso-descripcion {
+    color: var(--gris);
+    font-size: 0.88rem;
+    line-height: 1.5;
+    min-height: 53px;
+}
+
+.aviso-ubicacion {
+    color: #82909d;
+    font-size: 0.82rem;
+    margin: 17px 0;
+}
+
+.aviso-ubicacion i {
+    color: var(--turquesa);
+    margin-right: 5px;
+}
+
+.aviso-footer {
+    border-top: 1px solid #edf0f3;
+    padding-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.aviso-autor {
+    color: #99a3ad;
+    font-size: 0.7rem;
+}
+
+.aviso-footer p {
+    font-size: 0.82rem;
+    font-weight: 600;
+    margin: 3px 0 0;
+}
+
+.aviso-precio {
+    color: #139b8c;
+    font-size: 0.95rem;
+    text-align: right;
+}
+
+
+/* SIN RESULTADOS */
+
+.sin-resultados {
+    text-align: center;
+    background: white;
+    padding: 55px 20px;
+    border-radius: 12px;
+}
+
+.sin-resultados>i {
+    font-size: 3rem;
+    color: #aab6c1;
+}
+
+.sin-resultados h4 {
+    margin-top: 15px;
+    color: var(--azul-oscuro);
+}
+
+.sin-resultados p {
+    color: var(--gris);
+}
+
+
+/* LLAMADO A PUBLICAR */
+
+.publicar-section {
+    background: linear-gradient(110deg, #14283f, #244d68);
+    color: white;
+    padding: 55px 0;
+}
+
+.publicar-section h2 {
+    font-size: 1.9rem;
+    font-weight: 750;
+}
+
+.publicar-section p {
+    color: #d0dce5;
+    margin: 10px 0 0;
+}
+
+.publicar-section .btn {
+    color: var(--azul-oscuro);
+    font-weight: 700;
+    padding: 13px 25px;
+}
+
+.publicar-section .btn:hover {
+    background-color: #dceeea;
+}
+
+
+/* PIE DE PÁGINA */
+
+.footer-principal {
+    background: #101f30;
+    color: white;
+    padding: 35px 0;
+}
+
+.footer-principal h5 {
+    font-weight: 700;
+}
+
+.footer-principal p {
+    color: #9cabb9;
+    font-size: 0.85rem;
+    margin: 5px 0 0;
+}
+
+.footer-copy {
+    color: #8999a8;
+    font-size: 0.8rem;
+    align-self: center;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 767px) {
+
+    .portada {
+        padding: 65px 0 90px;
+    }
+
+    .titulo-portada {
+        font-size: 2.35rem;
+    }
+
+    .buscador .btn {
+        padding: 0 14px;
+    }
+
+    .seccion-avisos {
+        padding-top: 55px;
+        padding-bottom: 55px;
+    }
+
+    .categoria-card {
+        padding: 17px;
+    }
+
+    .publicar-section {
+        text-align: center;
+    }
+
+    .publicar-section .btn {
+        margin-top: 25px;
+    }
+
+    .footer-copy {
+        align-self: auto;
+    }
+}

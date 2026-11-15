@@ -1,68 +1,34 @@
-# Clasificados. — Sistema de Avisos Clasificados
+# Sistema de Avisos Clasificados
 
-<p align="center">
+Proyecto integrador desarrollado en PHP y MySQL para la gestión y publicación de avisos clasificados.
 
-**Encontrá lo que buscás. Publicá lo que ofrecés.**
+## 1. Descripción
 
-Sistema web de avisos clasificados desarrollado en PHP y MySQL, como proyecto integrador de Programación PHP y Base de Datos 2.
+El sistema permite publicar, consultar, modificar y eliminar avisos clasificados, organizados en tres categorías:
 
-</p>
+- **Laboral:** empresa contratante, descripción del cargo y sueldo mensual.
+- **Producto:** descripción del producto y precio.
+- **Inmobiliario:** dirección, tipo de inmueble, inmobiliaria y modalidad de operación (venta o alquiler).
 
----
+Los avisos pueden publicarse de forma destacada mediante un costo adicional.
 
-## Acerca del proyecto
+El sistema cuenta con tres tipos de acceso:
 
-Clasificados es una aplicación web que permite publicar, consultar y administrar avisos de distintas categorías, conectando personas que ofrecen productos, servicios y oportunidades laborales con quienes los buscan.
+- **Visitante:** puede consultar los avisos publicados.
+- **Publicador:** puede crear, modificar y eliminar sus propios avisos.
+- **Administrador:** puede eliminar cualquier aviso y gestionar las cuentas de los publicadores.
 
-El sistema contempla tres categorías principales:
+## 2. Tecnologías utilizadas
 
-- **Laboral:** ofertas de empleo con información de la empresa, descripción del cargo y remuneración.
-- **Productos:** publicación de artículos con descripción y precio.
-- **Inmobiliario:** avisos de propiedades en venta o alquiler.
+- PHP 8.2
+- MySQL / MariaDB
+- PDO
+- HTML5
+- CSS3
+- JavaScript
+- Programación Orientada a Objetos (POO)
 
-La aplicación contempla distintos perfiles de usuario, con permisos específicos para consultar, publicar y administrar avisos.
-
-## Estado del desarrollo
-
-El proyecto se encuentra en desarrollo. Las funcionalidades se incorporan
-progresivamente siguiendo los requerimientos del proyecto integrador.
-
-## Funcionalidades previstas
-
-### Visitantes
-- Consultar los avisos publicados.
-- Explorar las diferentes categorías.
-- Buscar avisos.
-
-### Publicadores
-- Crear avisos de distintas categorías.
-- Consultar sus propios avisos.
-- Modificar avisos existentes, sin cambiar su categoría.
-- Eliminar sus publicaciones.
-- Gestionar sus publicaciones sin intervenir en las de otros usuarios.
-
-### Administradores
-- Consultar todos los avisos.
-- Eliminar cualquier publicación.
-- Crear usuarios publicadores.
-- Eliminar usuarios publicadores.
-
-## Tecnologías utilizadas
-
-| Tecnología | Aplicación |
-|---|---|
-| PHP | Lógica de aplicación y programación orientada a objetos |
-| MySQL 8 | Gestión y almacenamiento de datos |
-| PDO | Conexión e interacción entre PHP y MySQL |
-| HTML5 | Estructura de las páginas |
-| CSS3 | Estilos personalizados |
-| Bootstrap 5.3 | Diseño responsive e interfaz |
-| Bootstrap Icons | Iconografía |
-| Git / GitHub | Control de versiones |
-
-## Arquitectura del proyecto
-
-La aplicación se organiza separando las clases, configuración, procesos, interfaz y scripts SQL.
+## 3. Estructura del proyecto
 
 ```text
 avisos_clasificados/
@@ -78,129 +44,132 @@ avisos_clasificados/
 │   └── conexion.php
 │
 ├── procesos/
-│   └── procesar_aviso.php
+│   ├── autenticar_usuario.php
+│   ├── procesar_aviso.php
+│   └── procesar_publicadores.php
 │
 ├── public/
 │   ├── index.php
 │   ├── clasificados.php
 │   ├── publicador.php
-│   └── admin.php
+│   ├── admin.php
+│   ├── crear_admin.php
+│   ├── controladores/
+│   ├── css/
+│   ├── js/
+│   └── img/
 │
-├── css/
-│   └── estilos.css
-│
-├── js/
-│   └── publicador.js
 ├── sql/
 │   └── avisos_clasificados.sql
 │
 └── README.md
 ```
 
-*La estructura y los archivos podrán ampliarse durante el desarrollo.*
-
-## Instalación y configuración
+## 4. Instalación y configuración
 
 ### Requisitos
 
-- PHP.
-- MySQL 8.0 o superior.
-- Apache o servidor web compatible.
-- Visual Studio Code (opcional).
-- Navegador web moderno.
+- PHP 8.2 o superior.
+- MySQL o MariaDB.
+- Servidor local XAMPP o equivalente.
+- Navegador web.
 
-Se puede utilizar XAMPP como entorno de desarrollo local.
+### Paso 1: Base de datos
 
-### 1. Clonar el repositorio
+1. Iniciar Apache y MySQL desde XAMPP.
+2. Acceder a phpMyAdmin.
+3. Importar el archivo `sql/avisos_clasificados.sql`.
+4. Verificar que se haya creado la base de datos `avisos_clasificados`.
 
-```bash
-git clone URL_DEL_REPOSITORIO
-```
+El archivo SQL contiene la estructura de las tablas, sus relaciones y los registros iniciales de roles, categorías y tipos de inmueble.
 
-### 2. Ubicar el proyecto
+### Paso 2: Conexión
 
-Copiar o clonar la carpeta dentro del directorio público del servidor web.
+Verificar los datos de conexión en:
 
-En XAMPP:
+`config/conexion.php`
 
-```text
-C:\xampp\htdocs\avisos_clasificados
-```
+Configurar según el entorno:
 
-### 3. Configurar la base de datos
-
-El script SQL de creación y configuración de la base de datos estará
-disponible en:
-
-```text
-sql/avisos_clasificados.sql
-```
-
-Ejecutarlo en MySQL para crear la estructura y los datos iniciales de la aplicación.
-
-### 4. Configurar la conexión
-
-Editar el archivo:
-
-```text
-config/conexion.php
-```
-
-Configurar los parámetros de conexión correspondientes al entorno local:
-
-- Servidor.
+- Servidor de base de datos.
 - Nombre de la base de datos.
 - Usuario.
 - Contraseña.
 
+### Paso 3: Crear administrador inicial
 
+Con la base de datos importada:
 
+1. Iniciar el servidor web.
+2. Acceder a `crear_admin.php`.
+3. Completar el formulario con los datos del administrador.
+4. Registrar la cuenta.
 
-### 5. Ejecutar la aplicación
+El sistema verifica que no exista previamente un administrador y almacena la contraseña mediante un hash seguro.
 
-Iniciar Apache y MySQL y acceder desde el navegador:
+### Paso 4: Iniciar la aplicación
 
-```text
-http://localhost/avisos_clasificados/public/clasificados.php
+Desde la terminal, ubicarse en la carpeta raíz del proyecto y ejecutar:
+
+```bash
+C:\xampp\php\php.exe -S localhost:8000 -t public
 ```
 
-## Programación orientada a objetos
+Abrir en el navegador:
 
-El desarrollo utiliza los principios de programación orientada a objetos, incorporando:
+`http://localhost:8000/`
 
-- **Encapsulamiento:** atributos privados y acceso controlado mediante getters y setters.
-- **Herencia:** especialización de la clase base `Aviso` en las distintas categorías.
-- **Agregación y composición:** relaciones entre los objetos del sistema.
-- **Excepciones:** control y tratamiento de errores.
-- **Validaciones:** control de los datos ingresados por los usuarios.
+La página inicial redirige al listado público de avisos.
 
-## Seguridad
+## 5. Funcionalidades principales
 
-Se contemplan mecanismos para proteger la aplicación:
+### Consulta de avisos
 
-- Consultas preparadas mediante PDO.
-- Prevención de inyección SQL.
-- Contraseñas almacenadas mediante funciones de hash seguro de PHP.
-- Validación de los datos recibidos desde formularios.
-- Control de permisos según el perfil del usuario.
-- Protección frente a la modificación o eliminación de avisos pertenecientes a otros publicadores.
+- Visualización pública de los avisos.
+- Organización por categorías.
+- Información del autor y fecha de creación.
+- Identificación visual de avisos destacados.
 
-## Proyecto académico
+### Gestión de publicadores
 
-**Proyecto Integrador 2026**
+- Creación de avisos laborales, de productos e inmobiliarios.
+- Modificación de avisos propios.
+- Eliminación de avisos propios.
+- Publicación de avisos destacados.
 
-- Asignatura: Programación PHP.
-- Asignatura: Base de Datos 2.
-- Institución: CTT Redes y Software.
-- Fecha de entrega de Programación PHP: 17 de noviembre de 2026.
-- Fecha de entrega de Base de Datos 2: 24 de noviembre de 2026.
+### Administración
 
----
+- Eliminación de cualquier aviso.
+- Creación de cuentas de publicadores.
+- Eliminación de cuentas de publicadores.
 
-<p align="center">
+### Seguridad
 
-**Clasificados.**
+- Contraseñas almacenadas mediante hash.
+- Consultas preparadas utilizando PDO.
+- Validaciones de datos recibidos mediante formularios.
+- Control de permisos según el rol del usuario.
+- Restricción de modificación y eliminación de avisos ajenos por parte de los publicadores.
+- Control de excepciones en los procesos.
 
-*Una oportunidad, una publicación, una conexión.*
+## 6. Base de datos
 
-</p>
+La base de datos está compuesta por las siguientes tablas:
+
+- `autor`
+- `rol`
+- `categoria`
+- `aviso`
+- `aviso_laboral`
+- `aviso_producto`
+- `aviso_inmobiliario`
+- `tipo_inmueble`
+
+Las tablas específicas de cada categoría se relacionan con la tabla principal `aviso`.
+
+## 7. Consideraciones
+
+- El administrador inicial debe crearse antes de comenzar a utilizar las funcionalidades administrativas.
+- Los publicadores se gestionan desde el panel de administración.
+- Los avisos destacados se identifican mediante el atributo `resaltado`.
+- La categoría de un aviso no puede modificarse una vez creado.

@@ -1,96 +1,185 @@
+
 <?php
+
+require_once __DIR__ . '/../config/conexion.php';
 
 function e($valor)
 {
-    return htmlspecialchars((string)$valor, ENT_QUOTES, 'UTF-8');
+    return htmlspecialchars((string) $valor, ENT_QUOTES, 'UTF-8');
 }
 
-// Datos ficticios para desarrollar la interfaz.
-// Más adelante los obtendremos desde MySQL.
-
-$avisos = [
-    [
-        "id" => 1,
-        "titulo" => "Desarrollador PHP Junior",
-        "categoria" => "Laboral",
-        "descripcion" => "Buscamos desarrollador con conocimientos de PHP, MySQL y JavaScript.",
-        "ubicacion" => "Montevideo",
-        "autor" => "Tech Solutions",
-        "precio" => "A convenir",
-        "imagen" => "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800"
-    ],
-    [
-        "id" => 2,
-        "titulo" => "Notebook Lenovo ThinkPad",
-        "categoria" => "Producto",
-        "descripcion" => "Excelente estado. Procesador Intel Core i5, 16 GB RAM y SSD.",
-        "ubicacion" => "Ciudad de la Costa",
-        "autor" => "Carlos Rodríguez",
-        "precio" => "$ 18.500",
-        "imagen" => "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=800"
-    ],
-    [
-        "id" => 3,
-        "titulo" => "Apartamento en alquiler",
-        "categoria" => "Inmobiliario",
-        "descripcion" => "Apartamento de dos dormitorios, luminoso y cerca de servicios.",
-        "ubicacion" => "Malvín, Montevideo",
-        "autor" => "Inmobiliaria Horizonte",
-        "precio" => "$ 28.000 / mes",
-        "imagen" => "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800"
-    ],
-    [
-        "id" => 4,
-        "titulo" => "Analista de datos",
-        "categoria" => "Laboral",
-        "descripcion" => "Se busca analista con experiencia en SQL Server y Power BI.",
-        "ubicacion" => "Montevideo",
-        "autor" => "Data Group",
-        "precio" => "A convenir",
-        "imagen" => "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800"
-    ],
-    [
-        "id" => 5,
-        "titulo" => "Bicicleta MTB rodado 29",
-        "categoria" => "Producto",
-        "descripcion" => "Bicicleta de montaña en muy buen estado. Lista para usar.",
-        "ubicacion" => "Lagomar",
-        "autor" => "Martín Pérez",
-        "precio" => "$ 12.000",
-        "imagen" => "https://images.unsplash.com/photo-1485965120184-e220f721d03e?w=800"
-    ],
-    [
-        "id" => 6,
-        "titulo" => "Casa con patio y cochera",
-        "categoria" => "Inmobiliario",
-        "descripcion" => "Casa de tres dormitorios, amplio patio y cochera.",
-        "ubicacion" => "Solymar",
-        "autor" => "Inmobiliaria del Este",
-        "precio" => "USD 185.000",
-        "imagen" => "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800"
-    ]
-];
-
-// Filtros recibidos por GET.
+// Filtros recibidos por GET
 $categoria = $_GET['categoria'] ?? '';
 $busqueda = trim($_GET['busqueda'] ?? '');
 
-$avisosFiltrados = array_filter($avisos, function ($aviso) use ($categoria, $busqueda) {
+// Categorías disponibles
+$categorias = [
+    'Laboral' => 1,
+    'Producto' => 2,
+    'Inmobiliario' => 3
+];
 
-    $coincideCategoria = $categoria === '' || $aviso['categoria'] === $categoria;
+// Validar categoría
+if ($categoria !== '' && !isset($categorias[$categoria])) {
+    $categoria = '';
+}
 
-    $texto = $aviso['titulo'] . ' ' .
-        $aviso['descripcion'] . ' ' .
-        $aviso['ubicacion'] . ' ' .
-        $aviso['autor'];
+// Consultar avisos desde la base de datos
+$sql = "SELECT
+            a.id_aviso,
+            a.titulo,
+            a.fecha_hora_creacion,
+            a.resaltado,
+            a.id_categoria,
+            c.nombre AS categoria,
+            au.nombre AS autor,
+            al.empresa_contratante,
+            al.descripcion_cargo,
+            al.sueldo_mensual,
+            ap.descripcion_producto,
+            ap.precio,
+            ai.direccion,
+            ai.nombre_inmobiliaria,
+            ai.modalidad,
+            ai.precio_venta,
+            ai.precio_alquiler,
+            ai.gastos_comunes,
+            ti.nombre AS tipo_inmueble
+        FROM aviso a
+        JOIN categoria c ON c.id_categoria = a.id_categoria
+        JOIN autor au ON au.id_autor = a.id_autor
+        LEFT JOIN aviso_laboral al ON al.id_aviso = a.id_aviso
+        LEFT JOIN aviso_producto ap ON ap.id_aviso = a.id_aviso
+        LEFT JOIN aviso_inmobiliario ai ON ai.id_aviso = a.id_aviso
+        LEFT JOIN tipo_inmueble ti ON ti.id_tipo_inmueble = ai.id_tipo_inmueble
+        WHERE 1 = 1";
 
-    $coincideBusqueda = $busqueda === '' ||
-        stripos($texto, $busqueda) !== false;
+$parametros = [];
 
-    return $coincideCategoria && $coincideBusqueda;
-});
+// Aplicar filtro por categoría
+if ($categoria !== '') {
+    $sql .= " AND a.id_categoria = :categoria";
+    $parametros[':categoria'] = $categorias[$categoria];
+}
+
+// Aplicar búsqueda
+if ($busqueda !== '') {
+    $sql .= " AND (
+        a.titulo LIKE :busqueda
+        OR au.nombre LIKE :busqueda
+        OR al.empresa_contratante LIKE :busqueda
+        OR al.descripcion_cargo LIKE :busqueda
+        OR ap.descripcion_producto LIKE :busqueda
+        OR ai.direccion LIKE :busqueda
+        OR ai.nombre_inmobiliaria LIKE :busqueda
+    )";
+
+    $parametros[':busqueda'] = '%' . $busqueda . '%';
+}
+
+$sql .= " ORDER BY c.nombre ASC, a.fecha_hora_creacion DESC";
+
+$stmt = $conexion->prepare($sql);
+$stmt->execute($parametros);
+
+$resultados = $stmt->fetchAll();
+
+// Adaptar los resultados al formato utilizado por las tarjetas
+$avisos = [];
+
+foreach ($resultados as $fila) {
+
+    $descripcion = '';
+    $ubicacion = 'No especificada';
+    $precio = 'A convenir';
+
+    switch ((int) $fila['id_categoria']) {
+
+        case 1:
+
+            $descripcion = $fila['descripcion_cargo'];
+            $ubicacion = $fila['empresa_contratante'];
+
+            if ($fila['sueldo_mensual'] !== null) {
+                $precio = '$ ' . number_format(
+                    (float) $fila['sueldo_mensual'],
+                    2,
+                    ',',
+                    '.'
+                ) . ' / mes';
+            }
+
+            $imagen = 'img/categoria-laboral.svg'; //'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800';
+
+            break;
+
+        case 2:
+
+            $descripcion = $fila['descripcion_producto'];
+
+            $precio = '$ ' . number_format(
+                (float) $fila['precio'],
+                2,
+                ',',
+                '.'
+            );
+
+            $imagen = 'img/categoria-producto.svg'; //'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=800';
+
+            break;
+
+        case 3:
+
+            $descripcion = $fila['tipo_inmueble'] .
+                ' - ' . $fila['modalidad'] .
+                ' - ' . $fila['nombre_inmobiliaria'];
+
+            $ubicacion = $fila['direccion'];
+
+            if ($fila['modalidad'] === 'Venta') {
+
+                $precio = '$ ' . number_format(
+                    (float) $fila['precio_venta'],
+                    2,
+                    ',',
+                    '.'
+                );
+
+            } else {
+
+                $precio = '$ ' . number_format(
+                    (float) $fila['precio_alquiler'],
+                    2,
+                    ',',
+                    '.'
+                ) . ' / mes';
+
+            }
+
+            $imagen = 'img/categoria-inmobiliario.svg'; //'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800';
+
+            break;
+    }
+
+    $avisos[] = [
+        'id' => $fila['id_aviso'],
+        'titulo' => $fila['titulo'],
+        'categoria' => $fila['categoria'],
+        'fecha' => $fila['fecha_hora_creacion'],
+        'resaltado' => (bool) $fila['resaltado'],
+        'descripcion' => $descripcion,
+        'ubicacion' => $ubicacion,
+        'autor' => $fila['autor'],
+        'precio' => $precio,
+        'imagen' => $imagen
+    ];
+}
+
+// Los resultados ya vienen filtrados desde MySQL
+$avisosFiltrados = $avisos;
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -105,7 +194,7 @@ $avisosFiltrados = array_filter($avisos, function ($aviso) use ($categoria, $bus
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="css/estilos.css">
 </head>
 
 <body>
@@ -325,11 +414,24 @@ $avisosFiltrados = array_filter($avisos, function ($aviso) use ($categoria, $bus
                                     <?= e($aviso['categoria']) ?>
                                 </span>
 
+                                <?php if ($aviso['resaltado']): ?>
+                                    <span class="badge bg-warning text-dark position-absolute top-0 end-0 m-3">
+                                        <i class="bi bi-star-fill me-1"></i>Destacado
+                                    </span>
+                                <?php endif; ?>
+
                             </div>
 
                             <div class="aviso-contenido">
 
-                                <h5><?= e($aviso['titulo']) ?></h5>
+                                <h5 class="<?= $aviso['resaltado'] ? 'fw-bold fs-4' : '' ?>">
+                                    <?= e($aviso['titulo']) ?>
+                                </h5>
+
+                                <p class="text-muted small mb-2">
+                                    <i class="bi bi-calendar3 me-1"></i>
+                                    Publicado el <?= e(date('d/m/Y H:i', strtotime($aviso['fecha']))) ?>
+                                </p>
 
                                 <p class="aviso-descripcion">
                                     <?= e($aviso['descripcion']) ?>

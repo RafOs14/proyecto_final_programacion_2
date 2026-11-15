@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+<rect width="800" height="500" fill="#eef0eb"></rect>
+<circle cx="150" cy="100" r="95" fill="#e0e5dc"></circle>
+<rect x="175" y="205" width="450" height="155" rx="18" fill="#fff" stroke="#cbd3c7" stroke-width="8"></rect>
+<rect x="225" y="145" width="105" height="115" rx="12" fill="#b8c8b5"></rect>
+<rect x="355" y="175" width="115" height="85" rx="12" fill="#d5c5a9"></rect>
+<circle cx="545" cy="205" r="58" fill="#a9b9c8"></circle>
+<path d="M225 360h350" stroke="#aab7a7" stroke-width="10" stroke-linecap="round"></path>
+<text x="400" y="445" text-anchor="middle" font-family="Arial,sans-serif" font-size="30" fill="#5d6b5c">PRODUCTOS Y ARTÍCULOS</text>
+</svg>

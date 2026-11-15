@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+<rect width="800" height="500" fill="#e9eef3"></rect>
+<circle cx="650" cy="95" r="90" fill="#d8e1ea"></circle>
+<rect x="205" y="145" width="390" height="230" rx="18" fill="#fff" stroke="#c4d0dc" stroke-width="8"></rect>
+<rect x="245" y="185" width="310" height="150" rx="8" fill="#dce6ee"></rect>
+<path d="M330 375h140l28 35H302z" fill="#9aabba"></path>
+<path d="M385 225h30v70h-30zM365 245h70v30h-70z" fill="#71869a"></path>
+<text x="400" y="455" text-anchor="middle" font-family="Arial,sans-serif" font-size="30" fill="#526579">OPORTUNIDADES LABORALES</text>
+</svg>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+<rect width="800" height="500" fill="#edf1f2"></rect>
+<circle cx="650" cy="95" r="80" fill="#dce6e5"></circle>
+<path d="M150 245 400 75 650 245v175H150z" fill="#fff" stroke="#b9c9c8" stroke-width="10"></path>
+<path d="M115 250 400 55 685 250" fill="none" stroke="#7d9997" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"></path>
+<rect x="350" y="285" width="100" height="135" rx="8" fill="#c7d7d4"></rect>
+<rect x="215" y="270" width="90" height="80" rx="8" fill="#dce8e6"></rect>
+<rect x="495" y="270" width="90" height="80" rx="8" fill="#dce8e6"></rect>
+<text x="400" y="470" text-anchor="middle" font-family="Arial,sans-serif" font-size="30" fill="#536d6a">INMUEBLES</text>
+</svg>

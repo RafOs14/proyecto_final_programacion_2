@@ -8,7 +8,11 @@ class Autor
     {
         $this->id = $id;
         $this->setNombre($nombre);
-        $this->setEmail($email);
+        if ($email !== null && $email !== '') {
+            $this->setEmail($email);
+        } else {
+            $this->email = null;
+        }
         $this->setTelefono($telefono);
         $this->setIdRol($idRol);
         $this->setActivo($activo);
